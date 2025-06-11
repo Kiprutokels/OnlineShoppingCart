@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding-top: 50px;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      color: black;
+    }
+
+    .sidebar a:hover {
+      color: orange;
+      text-decoration: none;
+    }
+
+    .sidebar span.glyphicon {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    .dropdown-menu {
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-menu>li>a {
+      color: black;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 8px 15px;
+    }
+
+    .dropdown-menu>li>a:hover {
+      color: orange;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    footer a:hover {
+      color: orange !important;
+    }
+
+    .navbar-nav>li>a {
+      padding-top: 15px !important;
+      padding-bottom: 15px !important;
+    }
+
+    @media (max-width: 767px) {
+      .sidebar {
+        width: 100% !important;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" style="background: #fff; border-bottom: 1px solid #ccc;">
+    <div class="container-fluid" style="background-color: #f8f8f8; padding: 10px 15px; border-bottom: 1px solid #ddd;">
+      <div class="row">
+        <div class="col-sm-6 text-left">
+          <strong style="color: orange;">@Buy on Classic</strong>
+        </div>
+        <div class="col-sm-6 text-right">
+          <strong style="color: black;">Classic <span style="color: orange;">@</span></strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-weight: bold; color: black;">Classic <span
+            style="color: orange;">@</span></a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <form class="navbar-form navbar-left" style="width: 60%;">
+          <div class="input-group" style="width: 100%;">
+            <input type="text" class="form-control" placeholder="Search products, brands and categories"
+              style="width: 100%;">
+            <span class="input-group-btn">
+              <button class="btn btn-warning" type="submit"
+                style="border-radius: 0 4px 4px 0; color: black;">Search</button>
+            </span>
+          </div>
+        </form>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-user"></span> Account <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Orders</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-question-sign"></span> Help <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Place your Order</a></li>
+              <li><a href="#">Payments Options</a></li>
+              <li><a href="#">Returns & Refunds</a></li>
+              <li><a href="#">Warranty</a></li>
+              <li style="padding: 5px 15px;">
+                <a href="#"
+                  style="background-color: orange; color: white; display: block; text-align: center; border-radius: 4px;">
+                  <span class="glyphicon glyphicon-envelope"></span> Live Chat
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <button class="btn btn-default visible-xs" type="button" data-toggle="collapse" data-target="#sidebarCollapse"
+      style="margin-top: 20px;">
+      <span class="glyphicon glyphicon-menu-hamburger"></span> Toggle Categories
+    </button>
+
+    <div class="collapse in" id="sidebarCollapse">
+      <div class="sidebar" style="background: white; border: none; border-radius: 10px; padding: 15px; width: 230px;">
+        <ul class="nav nav-pills nav-stacked" style="font-size: 12px;">
+          <li><a href="#"><span class="glyphicon glyphicon-home"></span> Official Stores</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-phone"></span> Phones & Tablets</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span> TVs & Audio</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> Appliances</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Health & Beauty</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-bed"></span> Home & Office</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-tasks"></span> Fashion</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-blackboard"></span> Computing</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-knight"></span> Gaming</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-apple"></span> Supermarket</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-tint"></span> Baby Products</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-option-horizontal"></span> Other categories</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top: 40px; font-size: 13px;">
+    <div style="background-color: #000; color: #fff; padding: 40px 20px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h2>
+              <a class="navbar-brand" href="#" style="font-weight: bold; color: #fff; font-size: 24px;">Classic <span
+                  style="color: orange;">@</span></a>
+            </h2>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-sm-6 col-sm-offset-3 text-center">
+            <h4 style="color: #fff;">New to Classic@</h4>
+            <p style="font-size: 13px; color: #ccc;">Subscribe to our newsletter to get updates on our latest offers!
+            </p>
+            <form class="form-inline" style="margin-top: 15px;">
+              <div class="form-group">
+                <input type="email" class="form-control input-sm" placeholder="Enter E-mail Address"
+                  style="width: 250px;" required>
+              </div>
+              <button type="submit" class="btn btn-warning btn-sm">Subscribe</button>
+              <p style="margin-top: 10px; font-size: 11px; color: #ccc;">
+                I agree to Classic@’s <a href="#" style="color: orange;">Privacy</a> and <a href="#"
+                  style="color: orange;">Cookie Policy</a>.<br>
+                You can unsubscribe from newsletters at any time.
+              </p>
+              <div class="checkbox text-left" style="margin-top: 5px; margin-left: 20px;">
+                <label style="font-size: 11px; color: #ccc;">
+                  <input type="checkbox" required> I accept the <a href="#" style="color: orange;">Legal Terms</a>.
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: #1c1c1c; color: #ccc; padding: 40px 20px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 style="color: #fff;">Need Help?</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" style="color: #ccc;">Chat with Us</a></li>
+              <li><a href="#" style="color: #ccc;">Help Center</a></li>
+              <li><a href="#" style="color: #ccc;">Contact Us</a></li>
+              <li><a href="#" style="color: #ccc;">Track Your Order</a></li>
+              <li><a href="#" style="color: #ccc;">Shipping & Delivery</a></li>
+              <li><a href="#" style="color: #ccc;">Return Policy</a></li>
+              <li><a href="#" style="color: #ccc;">Dispute Resolution</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h5 style="color: #fff;">About Classic@</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" style="color: #ccc;">About Us</a></li>
+              <li><a href="#" style="color: #ccc;">Careers</a></li>
+              <li><a href="#" style="color: #ccc;">Terms & Conditions</a></li>
+              <li><a href="#" style="color: #ccc;">Privacy Notice</a></li>
+              <li><a href="#" style="color: #ccc;">Returns & Refunds</a></li>
+              <li><a href="#" style="color: #ccc;">Flash Sales</a></li>
+              <li><a href="#" style="color: #ccc;">Advertise with Us</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h5 style="color: #fff;">Make Money With Us</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" style="color: #ccc;">Sell on Classic@</a></li>
+              <li><a href="#" style="color: #ccc;">Vendor Portal</a></li>
+              <li><a href="#" style="color: #ccc;">Become a Sales Consultant</a></li>
+              <li><a href="#" style="color: #ccc;">City Partner Program</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr style="margin: 30px 0; border-color: #444;">
+        <div class="row text-center" style="font-size: 12px; color: #888;">
+          <p>&copy; 2025 Classic@. All rights reserved.</p>
+          <p>
+            <a href="#" style="color: #bbb;">Kenya</a> |
+            <a href="#" style="color: #bbb;">Ghana</a> |
+            <a href="#" style="color: #bbb;">Egypt</a> |
+            <a href="#" style="color: #bbb;">Uganda</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

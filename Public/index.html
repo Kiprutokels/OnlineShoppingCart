@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Classic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding-top: 60px;
+    }
+
+    .register-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: orange;
+    }
+
+    p.description {
+      margin-bottom: 25px;
+      color: #666;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .alert {
+      margin-bottom: 20px;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 register-box">
+        <h2 class="text-center">Account Registration</h2>
+        <p class="text-center description">To sign up, kindly fill the form below</p>
+
+        <!-- Alert messages -->
+        <div id="alert-container"></div>
+
+        <form id="registrationForm">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create a password"
+              required minlength="6">
+          </div>
+
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+              placeholder="Re-enter your password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="registerBtn">Register</button>
+          <hr>
+          <p class="text-center">Already have an account? <a href="login.html">Login here</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#registrationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        // Clear previous alerts
+        $('#alert-container').empty();
+
+        // Get form data
+        const username = $('#username').val().trim();
+        const email = $('#email').val().trim();
+        const password = $('#password').val();
+        const confirmPassword = $('#confirm_password').val();
+
+        // Basic validation
+        if (!username || !email || !password || !confirmPassword) {
+          showAlert('All fields are required!', 'danger');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          showAlert('Passwords do not match!', 'danger');
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert('Password must be at least 6 characters long!', 'danger');
+          return;
+        }
+
+        // Disable submit button
+        $('#registerBtn').prop('disabled', true).text('Registering...');
+
+        // Prepare data for API
+        const userData = {
+          username: username,
+          email: email,
+          password: password
+        };
+
+        // Make API call
+        $.ajax({
+          url: '/api/auth/signup',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(userData),
+          success: function (response) {
+            showAlert('Registration successful! You can now login.', 'success');
+            $('#registrationForm')[0].reset();
+
+            // redirecting to login page after a delay
+            setTimeout(function () {
+              window.location.href = 'login.html';
+            }, 2000);
+          },
+          error: function (xhr) {
+            let errorMessage = 'Registration failed. Please try again.';
+
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+              errorMessage = xhr.responseJSON.message;
+            }
+
+            showAlert(errorMessage, 'danger');
+          },
+          complete: function () {
+            // Re-enable submit button
+            $('#registerBtn').prop('disabled', false).text('Register');
+          }
+        });
+      });
+
+      function showAlert(message, type) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                ${message}
+            </div>
+        `;
+        $('#alert-container').html(alertHtml);
+      }
+    });
+  </script>
+</body>
+
+</html>

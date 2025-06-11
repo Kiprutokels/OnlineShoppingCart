@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login - Classic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding-top: 60px;
+    }
+
+    .login-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: orange;
+    }
+
+    p.description {
+      margin-bottom: 25px;
+      color: #666;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .alert {
+      margin-bottom: 20px;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 login-box">
+        <h2 class="text-center">User Login</h2>
+        <p class="text-center description">Enter your credentials to access your account</p>
+
+        <!-- Alert messages -->
+        <div id="alert-container"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
+              required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Login</button>
+          <hr>
+          <p class="text-center">Don't have an account? <a href="index.html">Register here</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#loginForm').on('submit', function (e) {
+        e.preventDefault();
+
+        // Clear previous alerts
+        $('#alert-container').empty();
+
+        // Get form data
+        const email = $('#email').val().trim();
+        const password = $('#password').val();
+
+        // Basic validation
+        if (!email || !password) {
+          showAlert('Email and password are required!', 'danger');
+          return;
+        }
+
+        // Disable submit button
+        $('#loginBtn').prop('disabled', true).text('Logging in...');
+
+        // Prepare data for API
+        const loginData = {
+          email: email,
+          password: password
+        };
+
+        // Make API call
+        $.ajax({
+          url: 'http://localhost:5000/api/auth/login',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(loginData),
+          success: function (response) {
+            showAlert('Login successful!', 'success');
+
+            // Store the JWT token in localStorage
+            // In production to use secure HTTP-only cookies
+            localStorage.setItem('authToken', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+
+            // Redirect to dashboard
+            setTimeout(function () {
+              window.location.href = 'dashboard.html';
+            }, 1500);
+          },
+          error: function (xhr) {
+            let errorMessage = 'Login failed. Please try again.';
+
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+              errorMessage = xhr.responseJSON.message;
+            }
+
+            showAlert(errorMessage, 'danger');
+          },
+          complete: function () {
+            // Re-enable submit button
+            $('#loginBtn').prop('disabled', false).text('Login');
+          }
+        });
+      });
+
+      function showAlert(message, type) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                ${message}
+            </div>
+        `;
+        $('#alert-container').html(alertHtml);
+      }
+    });
+  </script>
+</body>
+
+</html>
