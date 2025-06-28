@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .sidebar {
+            background-color: #f8f9fa;
+            min-height: calc(100vh - 56px);
+            padding: 1rem 0;
+        }
+        
+        .category-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.375rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-item:hover {
+            background-color: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .category-item.active {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .promo-carousel .carousel-item img {
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        
+        .price-discount {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 600px;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        .btn-cart {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+        }
+        
+        .promo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+            <!-- Logo and Brand -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-shopping-bag me-2"></i>
+                Online Shopping
+            </a>
+            
+            <!-- Search Bar -->
+            <div class="search-container mx-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for products, brands and more...">
+                    <button class="btn btn-outline-light" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right Side Icons -->
+            <div class="d-flex align-items-center">
+                <a href="#" class="text-white text-decoration-none me-3">
+                    <i class="fas fa-user me-1"></i>
+                    <span class="d-none d-md-inline">Account</span>
+                </a>
+                <a href="#" class="text-white text-decoration-none me-3">
+                    <i class="fas fa-question-circle me-1"></i>
+                    <span class="d-none d-md-inline">Help</span>
+                </a>
+                <a href="#" class="text-white text-decoration-none position-relative">
+                    <i class="fas fa-shopping-cart me-1"></i>
+                    <span class="d-none d-md-inline">Cart</span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        3
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h6 class="text-muted mb-3 px-3">CATEGORIES</h6>
+                <div class="category-item active">
+                    <i class="fas fa-mobile-alt me-2"></i>
+                    Electronics
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-tshirt me-2"></i>
+                    Clothing
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-home me-2"></i>
+                    Home & Kitchen
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-book me-2"></i>
+                    Books
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-gamepad me-2"></i>
+                    Sports & Games
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-heart me-2"></i>
+                    Health & Beauty
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-car me-2"></i>
+                    Automotive
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-baby me-2"></i>
+                    Baby & Kids
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-paw me-2"></i>
+                    Pet Supplies
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-tools me-2"></i>
+                    Tools & Hardware
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <!-- Promotional Carousel -->
+                <div id="promoCarousel" class="carousel slide promo-carousel mb-4" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="2"></button>
+                    </div>
+                    <div class="carousel-inner rounded">
+                        <div class="carousel-item active position-relative">
+                            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=300&fit=crop" class="d-block w-100" alt="Electronics Sale">
+                            <div class="promo-overlay">
+                                <h3>Electronics Mega Sale</h3>
+                                <p>Up to 70% off on smartphones, laptops, and gadgets</p>
+                                <button class="btn btn-warning btn-lg">Shop Now</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=300&fit=crop" class="d-block w-100" alt="Fashion Sale">
+                            <div class="promo-overlay">
+                                <h3>Fashion Week Special</h3>
+                                <p>Trendy clothing and accessories at unbeatable prices</p>
+                                <button class="btn btn-warning btn-lg">Explore</button>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative">
+                            <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=1200&h=300&fit=crop" class="d-block w-100" alt="Home Sale">
+                            <div class="promo-overlay">
+                                <h3>Home Essentials</h3>
+                                <p>Transform your space with our curated collection</p>
+                                <button class="btn btn-warning btn-lg">Discover</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#promoCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#promoCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+
+                <!-- Products Section -->
+                <div class="container-fluid px-3">
+                    <h3 class="mb-4">Featured Products</h3>
+                    <div class="row g-4">
+                        <!-- Product 1 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-25%</div>
+                                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Smartphone">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Smartphone Pro Max</h5>
+                                    <p class="card-text text-muted">Latest flagship phone with advanced camera and AI features</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$749</span>
+                                            <span class="price-original">$999</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(248 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-40%</div>
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Running Shoes">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Athletic Running Shoes</h5>
+                                    <p class="card-text text-muted">Comfortable and durable shoes for all your running needs</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$89</span>
+                                            <span class="price-original">$149</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(567 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-15%</div>
+                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Headphones">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Wireless Headphones</h5>
+                                    <p class="card-text text-muted">Premium sound quality with noise cancellation technology</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$199</span>
+                                            <span class="price-original">$235</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(342 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-30%</div>
+                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Laptop">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Gaming Laptop</h5>
+                                    <p class="card-text text-muted">High-performance laptop for gaming and professional work</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$1,299</span>
+                                            <span class="price-original">$1,855</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(156 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 5 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-20%</div>
+                                <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Dress">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Summer Dress</h5>
+                                    <p class="card-text text-muted">Elegant and comfortable dress perfect for any occasion</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$79</span>
+                                            <span class="price-original">$99</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(89 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 6 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-35%</div>
+                                <img src="https://images.unsplash.com/photo-1586401100295-7a8096fd231e?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Coffee Maker">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Coffee Maker</h5>
+                                    <p class="card-text text-muted">Automatic coffee maker with programmable settings</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$129</span>
+                                            <span class="price-original">$199</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(234 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 7 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-45%</div>
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Book">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Bestseller Novel</h5>
+                                    <p class="card-text text-muted">Award-winning fiction that will captivate your imagination</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$12</span>
+                                            <span class="price-original">$22</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(1,245 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 8 -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="card product-card position-relative">
+                                <div class="discount-badge">-25%</div>
+                                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=300&h=200&fit=crop" class="card-img-top product-image" alt="Watch">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Smart Watch</h5>
+                                    <p class="card-text text-muted">Feature-rich smartwatch with health monitoring</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="price-discount me-2">$299</span>
+                                            <span class="price-original">$399</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <small class="text-muted ms-2">(467 reviews)</small>
+                                        </div>
+                                        <button class="btn btn-primary btn-cart w-100">
+                                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Online Shopping</h5>
+                    <p class="text-muted">Your one-stop destination for all your shopping needs. Quality products at unbeatable prices.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h6>Customer Service</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Shipping Info</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Returns</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Careers</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Press</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Sustainability</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Affiliates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Newsletter</h6>
+                    <p class="text-muted">Subscribe to get updates on new products and exclusive offers.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-outline-light" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2025 Online Shopping. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-muted text-decoration-none">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Category selection functionality
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.category-item').forEach(cat => cat.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.btn-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Simple animation feedback
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check me-2"></i>Added!';
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.classList.remove('btn-success');
+                    this.classList.add('btn-primary');
+                }, 1500);
+                
+                // Update cart count
+                const cartBadge = document.querySelector('.badge');
+                const currentCount = parseInt(cartBadge.textContent);
+                cartBadge.textContent = currentCount + 1;
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.input-group button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.input-group input').value;
+            if (searchTerm.trim()) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        });
+
+        // Newsletter subscription
+        document.querySelector('.input-group .btn-outline-light').addEventListener('click', function() {
+            const email = this.previousElementSibling.value;
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing to our newsletter!');
+                this.previousElementSibling.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // Search on Enter key
+        document.querySelector('.search-container input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value;
+                if (searchTerm.trim()) {
+                    alert(`Searching for: ${searchTerm}`);
+                }
+            }
+        });
+
+        // Auto-rotate carousel
+        const carousel = new bootstrap.Carousel(document.querySelector('#promoCarousel'), {
+            interval: 4000,
+            wrap: true
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Responsive navbar handling
+        window.addEventListener('resize', function() {
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.d-none.d-md-inline').forEach(el => {
+                    el.style.display = 'none';
+                });
+            } else {
+                document.querySelectorAll('.d-none.d-md-inline').forEach(el => {
+                    el.style.display = 'inline';
+                });
+            }
+        });
+
+        // Initialize tooltips for better UX
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Price animation on page load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.price-discount').forEach((price, index) => {
+                setTimeout(() => {
+                    price.style.opacity = '0';
+                    price.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        price.style.transition = 'all 0.3s ease';
+                        price.style.opacity = '1';
+                        price.style.transform = 'scale(1)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
